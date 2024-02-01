@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -13,14 +15,35 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public override async void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
+            Splash splashWindow = new Splash();
+            SplashViewModel splashViewModel = new SplashViewModel();
+
+            splashWindow.DataContext = splashViewModel;
+            desktop.MainWindow = splashWindow;
+
+            try
             {
-                DataContext = new MainWindowViewModel(),
-            };
+                splashViewModel.StartUpMessage = "Loading Ressources...";
+                await Task.Delay(1000, cancellationToken: splashViewModel.CancellationToken);
+                splashViewModel.StartUpMessage = "Get data from online...";
+                await Task.Delay(5000, cancellationToken: splashViewModel.CancellationToken);
+                splashViewModel.StartUpMessage = "Opening...";
+                await Task.Delay(500, cancellationToken: splashViewModel.CancellationToken);
+            }
+            catch (TaskCanceledException e)
+            {
+                splashWindow.Close();
+                return;
+            }
+
+            var mainWindow = new MainWindow();
+            desktop.MainWindow = mainWindow;
+            mainWindow.Show();
+            splashWindow.Close();
         }
 
         base.OnFrameworkInitializationCompleted();
