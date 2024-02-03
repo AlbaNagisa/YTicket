@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Yticket.Views.Auth;
 
-public partial class MainWindow : Window
+public partial class LoginWindow : Window
 {
-    public MainWindow()
+    public LoginWindow()
     {
         InitializeComponent();
     }

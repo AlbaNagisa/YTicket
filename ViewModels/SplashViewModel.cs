@@ -14,7 +14,7 @@ internal class SplashViewModel : ViewModelBase
 
     private CancellationTokenSource _cts = new CancellationTokenSource();
     public CancellationToken CancellationToken => _cts.Token;
-    
+
     public void Cancel()
     {
         _cts.Cancel();

@@ -5,27 +5,26 @@
         xmlns:vm="using:Yticket.ViewModels"
         x:CompileBindings="False"
         mc:Ignorable="d"
-        Width="200"
-        Height="120"
+        Width="300"
+        Height="200"
         x:Class="Yticket.Views.Splash"
-        SystemDecorations="None"
-        Background="Transparent"
+        SystemDecorations="BorderOnly"
+        Background="Black"
         WindowStartupLocation="CenterScreen"
         TransparencyLevelHint="Transparent"
         TransparencyBackgroundFallback="Transparent"
         Title="Splash"
-        x:DataType="vm:SplashViewModel">
+        x:DataType="vm:SplashViewModel"
+        >
         
         <Design.DataContext>
                 <vm:SplashViewModel/>
         </Design.DataContext>
         
-        <Border Background="#0000" CornerRadius="10">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Image Source="/Assets/avalonia-logo.ico" Width="50" Height="50"></Image>
-                        <TextBlock Text="{Binding StartUpMessage}"></TextBlock>
-                        <Button HorizontalAlignment="Center" Command="{Binding Cancel}">Cancel</Button>
-                </StackPanel>
-        </Border>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                <Image Source="/Assets/avalonia-logo.ico" Width="80" Height="80"></Image>
+                <TextBlock Margin="0 20" Text="{Binding StartUpMessage}"></TextBlock>
+                <Button HorizontalAlignment="Center" Foreground="White" Command="{Binding Cancel}">Cancel</Button>
+        </StackPanel>
 </Window>
    

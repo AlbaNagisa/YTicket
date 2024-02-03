@@ -4,7 +4,9 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Yticket.ViewModels;
+using Yticket.ViewModels.Auth;
 using Yticket.Views;
+using Yticket.Views.Auth;
 
 namespace Yticket;
 
@@ -24,15 +26,15 @@ public partial class App : Application
 
             splashWindow.DataContext = splashViewModel;
             desktop.MainWindow = splashWindow;
-
+            
             try
             {
-                splashViewModel.StartUpMessage = "Loading Ressources...";
-                await Task.Delay(1000, cancellationToken: splashViewModel.CancellationToken);
+                splashViewModel.StartUpMessage = "Loading Resources...";
+                await Task.Delay(100, cancellationToken: splashViewModel.CancellationToken);
                 splashViewModel.StartUpMessage = "Get data from online...";
-                await Task.Delay(5000, cancellationToken: splashViewModel.CancellationToken);
+                await Task.Delay(100, cancellationToken: splashViewModel.CancellationToken);
                 splashViewModel.StartUpMessage = "Opening...";
-                await Task.Delay(500, cancellationToken: splashViewModel.CancellationToken);
+                await Task.Delay(100, cancellationToken: splashViewModel.CancellationToken);
             }
             catch (TaskCanceledException e)
             {
@@ -40,9 +42,11 @@ public partial class App : Application
                 return;
             }
 
-            var mainWindow = new MainWindow();
-            desktop.MainWindow = mainWindow;
-            mainWindow.Show();
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.DataContext = new LoginViewModel();
+            
+            desktop.MainWindow = loginWindow;
+            desktop.MainWindow.Show();
             splashWindow.Close();
         }
 
