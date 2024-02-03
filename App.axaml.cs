@@ -1,8 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Yticket.Models;
 using Yticket.ViewModels;
 using Yticket.Views;
 
@@ -21,18 +21,19 @@ public partial class App : Application
         {
             Splash splashWindow = new Splash();
             SplashViewModel splashViewModel = new SplashViewModel();
-
+            
             splashWindow.DataContext = splashViewModel;
             desktop.MainWindow = splashWindow;
 
             try
             {
+           
                 splashViewModel.StartUpMessage = "Loading Ressources...";
-                await Task.Delay(1000, cancellationToken: splashViewModel.CancellationToken);
+                await Task.Delay(100, cancellationToken: splashViewModel.CancellationToken);
                 splashViewModel.StartUpMessage = "Get data from online...";
-                await Task.Delay(5000, cancellationToken: splashViewModel.CancellationToken);
-                splashViewModel.StartUpMessage = "Opening...";
-                await Task.Delay(500, cancellationToken: splashViewModel.CancellationToken);
+                await Task.Delay(100, cancellationToken: splashViewModel.CancellationToken);
+                splashViewModel.StartUpMessage = ENV.TEST;
+                await Task.Delay(100, cancellationToken: splashViewModel.CancellationToken);
             }
             catch (TaskCanceledException e)
             {

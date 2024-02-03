@@ -1,8 +1,13 @@
-﻿namespace Yticket.ViewModels;
+﻿using ReactiveUI;
+
+namespace Yticket.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-#pragma warning disable CA1822 // Mark members as static
-    public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+    private string _greeting = "Hello World!";
+    public string Greeting
+    {
+        get => _greeting;
+        set => this.RaiseAndSetIfChanged(ref _greeting, value);
+    }
 }
