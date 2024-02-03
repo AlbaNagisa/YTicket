@@ -1,8 +1,13 @@
-﻿namespace Yticket.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-public class MainWindowViewModel : ViewModelBase
+namespace Yticket.ViewModels
 {
-#pragma warning disable CA1822 // Mark members as static
-    public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+    public class MainWindowViewModel : ViewModelBase
+    {
+       
+    }
 }

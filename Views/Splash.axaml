@@ -10,7 +10,7 @@
         x:Class="Yticket.Views.Splash"
         SystemDecorations="BorderOnly"
         Background="Black"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         TransparencyLevelHint="Transparent"
         TransparencyBackgroundFallback="Transparent"
         Title="Splash"

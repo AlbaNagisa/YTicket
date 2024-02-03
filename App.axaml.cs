@@ -26,7 +26,7 @@ public partial class App : Application
 
             splashWindow.DataContext = splashViewModel;
             desktop.MainWindow = splashWindow;
-            
+
             try
             {
                 splashViewModel.StartUpMessage = "Loading Resources...";
@@ -42,10 +42,7 @@ public partial class App : Application
                 return;
             }
 
-            LoginWindow loginWindow = new LoginWindow();
-            loginWindow.DataContext = new LoginViewModel();
-            
-            desktop.MainWindow = loginWindow;
+            desktop.MainWindow = new MainWindow();
             desktop.MainWindow.Show();
             splashWindow.Close();
         }

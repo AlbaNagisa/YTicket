@@ -2,29 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:mv="clr-namespace:Yticket.Services;assembly=Yticket"
+        mc:Ignorable="d"
+        Width="400"
+        Height="450"
+        WindowStartupLocation="Manual"
         x:Class="Yticket.Views.MainWindow"
+        x:DataType="mv:Navigation"
         Title="MainWindow">
-        <DockPanel LastChildFill="True">
-                <Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-                        <TextBlock Foreground="Black">Dock = "Top"</TextBlock>
-                </Border>
-                <Border Height="25" Background="LemonChiffon" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
-                        <TextBlock Foreground="Black">Dock = "Bottom"</TextBlock>
-                </Border>
-                <Border Width="200" Background="PaleGreen" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left">
-                        <StackPanel>
-                                <StackPanel Background="Beige" Margin="0 0 0 5">
-                                        <TextBlock>Ticket 1</TextBlock>        
-                                        <TextBlock>Open | Closed</TextBlock>        
-                                        <TextBlock>qsd</TextBlock>
-                                </StackPanel>
-                        </StackPanel>
-                </Border>
-                <Border Background="White" BorderBrush="Black" BorderThickness="1">
-                        <TextBlock Foreground="Black">
-                                qsd
-                        </TextBlock>
-                </Border>
-        </DockPanel>
+    <Grid>
+        <ContentControl Content="{Binding CurrentPage}" />
+    </Grid>
 </Window>

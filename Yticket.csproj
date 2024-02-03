@@ -9,28 +9,25 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <AvaloniaResource Include="Assets\**"/>
+        <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
 
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.6"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.0.6"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.6"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.6"/>
+        <PackageReference Include="Avalonia" Version="11.0.6" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.6" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.6" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.6" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.6"/>
-        <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.6"/>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.6" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.6" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
 
     <ItemGroup>
       <Compile Update="Views\MainWindow.axaml.cs">
         <DependentUpon>MainWindow.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Views\Auth\LoginWindow.axaml.cs">
-        <DependentUpon>LoginWindow.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
@@ -43,6 +40,6 @@
 
 
     <ItemGroup>
-      <Folder Include="Models\" />
+      <Folder Include="Models\Utils\" />
     </ItemGroup>
 </Project>
