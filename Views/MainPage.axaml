@@ -40,8 +40,17 @@
                     <RowDefinition Height="300" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Foreground="White" Text="{Binding Title}" VerticalAlignment="Top" Margin="10" />
-                <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="300" Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Foreground="White" Text="{Binding Title}" VerticalAlignment="Top" Margin="10" />
+                    <Button Command="{Binding Close}" Background="Red" Foreground="white" Grid.Column="1">Fermer ticket</Button>
+                </Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              VerticalAlignment="Top" Height="300" Grid.Row="1">
                     <ItemsControl ScrollViewer.VerticalScrollBarVisibility="Visible"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                   Background="#0f0f0f" ItemsSource="{Binding Messages}">

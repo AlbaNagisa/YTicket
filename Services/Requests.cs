@@ -32,9 +32,7 @@ public class Requests
     {
         try
         {
-            Console.WriteLine(JsonConvert.SerializeObject(body));
             var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-
             if (bearer is not null)
             {
                 Client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", bearer);
@@ -51,6 +49,26 @@ public class Requests
         }
     }
 
+    public async Task<string> Patch(string url, object? body = null, string? bearer = null)
+    {
+        try
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
+            if (bearer is not null)
+            {
+                Client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", bearer);
+            }
+            var response = await Client.PatchAsync(url, content);
+            response.EnsureSuccessStatusCode();
+            Console.WriteLine("PATCH request sent!");
+            return await response.Content.ReadAsStringAsync();
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
     public async Task<string> Get(string url, string? bearer = null)
     {
         try

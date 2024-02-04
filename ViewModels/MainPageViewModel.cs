@@ -83,7 +83,11 @@ public class MainPageViewModel : ViewModelBase, INotifyCollectionChanged
     public ObservableCollection<Ticket> Tickets
     {
         get => _tickets;
-        set => this.RaiseAndSetIfChanged(ref _tickets, value);
+        set
+        {
+            value = new ObservableCollection<Ticket>(value.Where(t => t.status_id == 1));
+            this.RaiseAndSetIfChanged(ref _tickets, value);
+        }
     }
 
 
@@ -95,6 +99,34 @@ public class MainPageViewModel : ViewModelBase, INotifyCollectionChanged
             var tickets = JsonConvert.DeserializeObject<List<Ticket>>(ticketsJson);
             Tickets = new ObservableCollection<Ticket>(tickets);
             InitializeWebSocket();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching tickets: {ex.Message}");
+        }
+    }
+
+    public async void Close()
+    {
+        if (SelectedTicket == null)
+        {
+            IsPopupOpen = true;
+            return;
+        }
+
+        try
+        {
+            var res = await Requests.GetInstance().Patch($"ticket/{SelectedTicket.id}", new
+            {
+                status_id = 2
+            });
+            _webSocketClient.SendMessage(JsonConvert.SerializeObject(new
+            {
+                platform_id = _selectedTicket.client.platform_id,
+                action = "close",
+                client_identifier = _selectedTicket.client.identifier.ToString()
+            }));
+            _tickets.Remove(_selectedTicket);
         }
         catch (Exception ex)
         {
@@ -176,15 +208,6 @@ public class MainPageViewModel : ViewModelBase, INotifyCollectionChanged
 
             ticket.messages.Add(newMessage);
         }
-    }
-
-    private async void AddMessageToTicket(Ticket ticket, Message newMessage)
-    {
-        await Dispatcher.UIThread.InvokeAsync(() =>
-        {
-            ticket.messages.Add(newMessage);
-            this.RaisePropertyChanged(nameof(Messages));
-        });
     }
 
 
