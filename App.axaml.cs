@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Yticket.Services;
 using Yticket.ViewModels;
 using Yticket.ViewModels.Auth;
 using Yticket.Views;
@@ -41,7 +42,6 @@ public partial class App : Application
                 splashWindow.Close();
                 return;
             }
-
             desktop.MainWindow = new MainWindow();
             desktop.MainWindow.Show();
             splashWindow.Close();

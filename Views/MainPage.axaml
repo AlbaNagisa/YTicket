@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mv="using:Yticket.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:DataType="mv:MainPageViewModel"
+             x:Class="Yticket.Views.MainPage">
+    <DockPanel LastChildFill="True">
+        <Popup IsOpen="{Binding IsPopupOpen}">
+            <TextBlock Background="Red" Foreground="White" Text="Selectionne d'abord un ticket" />
+        </Popup>
+        <Border Width="200" Background="#0f0f0f" BorderBrush="White" BorderThickness="1" DockPanel.Dock="Left">
+            <StackPanel>
+                <StackPanel Background="#0f0f0f" Margin="0 0 0 5">
+                    <Button Background="MidnightBlue" Foreground="white" Command="{Binding RefreshTicket}">Refresh</Button>
+                    <ListBox Height="400" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             Background="#0f0f0f" ItemsSource="{Binding Tickets}"
+                             SelectedItem="{Binding SelectedTicket, Mode=TwoWay}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5" Background="Transparent">
+                                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="{Binding client.name}"
+                                               Foreground="White" />
+                                    <TextBlock FontSize="12" TextWrapping="Wrap" Text="{Binding name}"
+                                               Foreground="White" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Background="Black" BorderBrush="white" BorderThickness="1">
+            <Grid ColumnDefinitions="*">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="White" Text="{Binding Title}" VerticalAlignment="Top" Margin="10" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="300" Grid.Row="1">
+                    <ItemsControl ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  Background="#0f0f0f" ItemsSource="{Binding Messages}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5" Background="#0f0f0f">
+                                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="{Binding client_name}"
+                                               Foreground="White" />
+                                    <TextBlock FontSize="12" TextWrapping="Wrap" Text="{Binding message }"
+                                               Foreground="White" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Message, Mode=TwoWay}" Foreground="white"
+                             Watermark="Ecris ton message"
+                             VerticalAlignment="Bottom" Margin="10" />
+                    <Button Grid.Column="1" Command="{Binding SubmitCommand}" Foreground="white" Background="#0f0f0f">Envoyer</Button>
+                </Grid>
+            </Grid>
+        </Border>
+
+    </DockPanel>
+
+</UserControl>

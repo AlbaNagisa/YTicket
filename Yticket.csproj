@@ -37,9 +37,4 @@
       <UpToDateCheckInput Remove="Views\Components\Message.axaml" />
       <UpToDateCheckInput Remove="Views\Components\Ticket.axaml" />
     </ItemGroup>
-
-
-    <ItemGroup>
-      <Folder Include="Models\Utils\" />
-    </ItemGroup>
 </Project>

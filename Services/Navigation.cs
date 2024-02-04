@@ -15,8 +15,7 @@ public class Navigation : ReactiveObject, INotifyPropertyChanged
 
     private Navigation()
     {
-        Console.WriteLine("Navigation created");
-        CurrentPage = new LoginPage();
+        NavigateToPage(PagePool.GetInstance().GetPage(typeof(LoginPage)));
     }
 
     public static Navigation GetInstance()
@@ -29,17 +28,20 @@ public class Navigation : ReactiveObject, INotifyPropertyChanged
         get => _currentPage;
         set
         {
-            if (_currentPage != value)
-            {
-                _currentPage = value;
-                OnPropertyChanged(nameof(CurrentPage));
-            }
+            _currentPage = value;
+            OnPropertyChanged(nameof(CurrentPage));
         }
     }
 
     public void NavigateToPage(UserControl page)
     {
+        if (CurrentPage != null)
+        {
+            CurrentPage.DataContext.GetType().GetMethod("Exit")?.Invoke(CurrentPage.DataContext, null);
+        }
+
         CurrentPage = page;
+        CurrentPage.DataContext.GetType().GetMethod("Enter")?.Invoke(CurrentPage.DataContext, null);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

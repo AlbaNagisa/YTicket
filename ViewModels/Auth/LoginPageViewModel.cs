@@ -9,9 +9,7 @@ using Yticket.Views;
 
 namespace Yticket.ViewModels.Auth;
 
-
-
-public class LoginPageViewModel : ReactiveObject
+public class LoginPageViewModel : ViewModelBase
 {
     private string _email;
     private string _password;
@@ -55,13 +53,13 @@ public class LoginPageViewModel : ReactiveObject
             {
                 Root Result = (Root)JsonConvert.DeserializeObject(result, typeof(Root));
                 Console.WriteLine(Result.user.name);
-                Navigation.GetInstance().NavigateToPage(new SecondPage());
-                ErrorMessage = string.Empty;
-            } catch (Exception ex)
+                Navigation.GetInstance().NavigateToPage(PagePool.GetInstance().GetPage(typeof(MainPage)));
+                ErrorMessage = "Navigue ?";
+            }
+            catch (Exception ex)
             {
                 ErrorMessage = $"Identifiant ou mot de passe incorrect";
             }
-            
         });
     }
 
@@ -70,11 +68,10 @@ public class LoginPageViewModel : ReactiveObject
     {
         try
         {
-            return Observable.FromAsync(() => new User().Verify(Email, Password));
+            return Observable.FromAsync(() => User.GetInstance().Verify(Email, Password));
         }
         catch (Exception ex)
         {
-            // Handle exceptions
             ErrorMessage = $"Login error: {ex.Message}";
             return Observable.Empty<string>(); // or Observable.Throw<string>(ex) if you want to propagate the error
         }

@@ -2,24 +2,10 @@ using System;
 using System.Net.Http;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Yticket.Models.Utils;
 
 namespace Yticket.Models;
-
-public class Authorization
-{
-    public string access_token { get; set; }
-    public string token_type { get; set; }
-    public int expires_in { get; set; }
-}
-
-public class Root
-{
-    [JsonPropertyName("user")]
-    public User user { get; set; }
-    [JsonPropertyName("authorization")]
-    public Authorization authorization { get; set; }
-}
 
 public class User
 {
@@ -30,11 +16,32 @@ public class User
     public DateTime created_at { get; set; }
     public DateTime updated_at { get; set; }
     public bool admin { get; set; }
+
+    public static User Instance { get; set; }
+
+    private User()
+    {
+    }
+
+    public static User GetInstance()
+    {
+        if (Instance == null)
+        {
+            Instance = new User();
+        }
+
+        return Instance;
+    }
+
+
     public async Task<string> Verify(string email, string password)
     {
         try
         {
-            return await Requests.GetInstance().Post("auth/login", new { email, password });
+            var resJson = await Requests.GetInstance().Post("auth/login", new { email, password });
+            var res = JsonConvert.DeserializeObject<Root>(resJson);
+            Instance = res.user;
+            return resJson;
         }
         catch (HttpRequestException ex)
         {
@@ -44,4 +51,9 @@ public class User
         }
     }
 }
-    
+
+public class Root
+{
+    [JsonPropertyName("user")] public User user { get; set; }
+    [JsonPropertyName("authorization")] public Authorization authorization { get; set; }
+}

@@ -2,13 +2,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mv="clr-namespace:Yticket.Services;assembly=Yticket"
+        xmlns:vm="using:Yticket.Services"
         mc:Ignorable="d"
-        Width="400"
+        Width="800"
         Height="450"
+        MaxHeight="450"
+        MaxWidth="800"
+        MinHeight="450"
+        MinWidth="800"
         WindowStartupLocation="Manual"
         x:Class="Yticket.Views.MainWindow"
-        x:DataType="mv:Navigation"
+        x:DataType="vm:Navigation"
         Title="MainWindow">
     <Grid>
         <ContentControl Content="{Binding CurrentPage}" />
