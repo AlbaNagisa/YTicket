@@ -53,7 +53,7 @@ dotnet publish -c Release -r linux-x64 --self-contained
 
 - [Invite the Discord bot](https://discord.com/api/oauth2/authorize?client_id=1198921038986215555&permissions=8&scope=bot%20applications.commands)  
 - [Invite the Telegram bot](https://t.me/YTicketBot)
-  You had to seend a tm to each bot ;)
+# Vous devez envoyer un DM à chaque bot ;)
 
 ## Authors
 
